@@ -40,7 +40,9 @@ def in_silico_functional_predictions(input_variants_df):
                 'A' in str(row[mutationtaster_column]) or 'D' in str(row[mutationtaster_column]) if pd.notna(
                     row[mutationtaster_column]) else None,
                 'D' in str(row[provean_column]) if pd.notna(row[provean_column]) else None,
-                'D' in str(row[fathmm_column]) if pd.notna(row[fathmm_column]) else None
+                'D' in str(row[fathmm_column]) if pd.notna(row[fathmm_column]) else None,
+                pd.to_numeric(row['dbNSFP_CADD_phred_hg19'], errors='coerce') >= 20 if pd.notna(
+                    row[sift_column]) else None
             ]
 
             # Count occurrences of True, False, and N/A
