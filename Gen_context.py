@@ -10,15 +10,23 @@ date: 15/12/2023
 import pandas as pd
 
 def evaluate_genomic_context(input_variants_df):
+
+    # define the relevant columns
     impact_column = 'ANN[0].IMPACT'
     ontology_terms_column = 'ANN[0].ANNOTATION'
 
+    # initiate an empty list to store results
     results = []
 
+    # Iterate through each row of the dataframe
     for index, row in input_variants_df.iterrows():
+
         # Check if the mentioned columns have non-null values
         if pd.notna(row[impact_column]) and pd.notna(row[ontology_terms_column]):
+
+            # consider onlu high and moderate putative imapact ( neither LOW nor MODIFIER )
             if 'HIGH' in row[impact_column] or 'MODERATE' in row[impact_column]:
+
                 # Check if 'ANN[0].ANNOTATION' is not one of the specified values
                 if row[ontology_terms_column] not in ['synonymous_variant', 'intergenic_region', 'intron_variant',
                                                      'intragenic_variant', 'start_retained_variant', 'stop_retained_variant',

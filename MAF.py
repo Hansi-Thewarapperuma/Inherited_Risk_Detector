@@ -16,6 +16,7 @@ def evaluate_minor_allele_freq(input_variants_df):
                                                'AF_nfe_onf', 'AF_eas_oea', 'AF_nfe_nwe', 'AF_nfe_seu', 'AF_nfe_swe',
                                                'AF_eas_jpn', 'AF_eas_kor', 'AF_fin', 'AF_asj', 'AF_nfe_est', 'AF_oth']]
 
+    # initiate an empty list to store final results
     results = []
 
     # Iterate through each row of the dataframe
@@ -30,7 +31,7 @@ def evaluate_minor_allele_freq(input_variants_df):
             # Convert non-missing values to numerics
             numeric_values = [pd.to_numeric(value, errors='coerce') for value in row]
 
-            #*********** IMPLEMENTATION OF SIMPLE ENSEMBLE LEARNING METHOD USING AVERAGE ***********
+            #*********** IMPLEMENTATION OF ENSEMBLE AVERAGING METHOD ***********
 
             # Count occurrences of unique values for the row
             value_counts = pd.Series(numeric_values).value_counts()

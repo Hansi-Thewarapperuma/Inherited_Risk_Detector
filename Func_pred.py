@@ -18,15 +18,20 @@ def in_silico_functional_predictions(input_variants_df):
     cadd_column = 'dbNSFP_CADD_phred_hg19'
     fathmm_column = 'dbNSFP_FATHMM_pred'
 
+    # create a list including the above-mentioned columns
     func_pred_columns = [polyphen_column, sift_column, mutationtaster_column, provean_column, cadd_column,
                          fathmm_column]
 
+    # initiate an empty list to store results
     results = []
 
+    # Iterate through each row of the dataframe
     for index, row in input_variants_df.iterrows():
+
         # Check for N/A values
         na_count = row[func_pred_columns].isna().sum()
 
+        # when all the column values are not 'N/A' ; check the conditions to determine the deleteriousness
         if na_count < len(func_pred_columns):  # If there is at least one non-N/A value
             func_pred_count = [
                 'D' in str(row[polyphen_column]) or 'P' in str(row[polyphen_column]) if pd.notna(
@@ -42,6 +47,11 @@ def in_silico_functional_predictions(input_variants_df):
             true_count = sum(value is True for value in func_pred_count)
             false_count = sum(value is False for value in func_pred_count)
             na_count = len(func_pred_count) - true_count - false_count
+
+            # TRUE implies the condition is satisfied, i.e. deleterious
+            # FALSE implies the condition is satisfied, i.e. not_deleterious
+            # [if pd.notna..] was included due to the avaiability of N/A (seperate na_count was taken)
+
 
             # ************* ADOPTING MAJORITY VOTING ALGORITHM *****************
 

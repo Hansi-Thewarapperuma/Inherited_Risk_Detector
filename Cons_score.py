@@ -48,6 +48,10 @@ def conservation_scores(input_variants_df):
             false_count = sum(value is False for value in conserved_count)
             na_count = len(conserved_count) - true_count - false_count
 
+            # TRUE implies the condition is satisfied, i.e. conserved
+            # FALSE implies the condition is satisfied, i.e. not_conserved
+            # [if pd.notna..] was included due to the avaiability of N/A (seperate na_count was taken)
+
             # ************* ADOPTING MAJORITY VOTING ALGORITHM *****************
 
             # Use simple if-else logic to determine conservation status
