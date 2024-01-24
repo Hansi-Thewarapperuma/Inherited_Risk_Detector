@@ -12,7 +12,7 @@ def evaluate_clinical_significance(input_variants_df):
 
     # define the columns of TSV
     clnsig_column = 'CLNSIG'
-    dbnsfp_clnsig_column = 'dbNSFP_clinvar_clnsig'
+    #dbnsfp_clnsig_column = 'dbNSFP_clinvar_clnsig'
 
     # allocate customised scores for expected variant interpretations based on priority
     pathogenic_score = 1
