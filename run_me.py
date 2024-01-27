@@ -91,6 +91,7 @@ if __name__ == '__main__':
         'pathogenic': 1,
         'quality' : 1,
         'vus': 0,
+        'conflicting_interpretations_of_pathogenicity': 0,
 
         'no_considerable_impact': -1,
         'not_deleterious': -1,
@@ -134,8 +135,8 @@ if __name__ == '__main__':
                                       calculate_score(evaluations) == highest_total_score}
 
     # Print or use the filtered results as needed : HIGHEST SCORE
-    for index, evaluations in filtered_highest_score_results.items():
-        print(f"Index: {index}, Evaluations: {evaluations}, Total Score: {calculate_score(evaluations)}")
+    # for index, evaluations in filtered_highest_score_results.items():
+    #     print(f"Index: {index}, Evaluations: {evaluations}, Total Score: {calculate_score(evaluations)}")
 
     #  ****** IN CASE IF YOU WANT TO CONSIDER THE SECOND HIGHEST SCORE*******
     # Find the second-highest total score
@@ -154,5 +155,44 @@ if __name__ == '__main__':
                                              calculate_score(evaluations) == second_highest_total_score}
 
     # Print or use the filtered results as needed: SECOND HIGHEST SCORE
-    for index, evaluations in filtered_second_highest_score_results.items():
-        print(f"Index: {index}, Evaluations: {evaluations}, Total Score: {calculate_score(evaluations)}")
+    # for index, evaluations in filtered_second_highest_score_results.items():
+    #     print(f"Index: {index}, Evaluations: {evaluations}, Total Score: {calculate_score(evaluations)}")
+
+    # Count the number of results with the highest score and second highest score
+    pathogenic_count = len(filtered_highest_score_results)
+    pathogenic_likely_pathogenic_count = len(filtered_second_highest_score_results)
+
+    # Print the counts
+    print(f'Count of pathogenic variants detected: {pathogenic_count}')
+    print(f'Count of pathogenic or likely-pathogenic variants detected: {pathogenic_likely_pathogenic_count}')
+
+    # Get the indexes with +2 added
+    pathogenic_indexes = list(filtered_highest_score_results.keys())
+    pathogenic_likely_pathogenic_indexes = list(filtered_second_highest_score_results.keys())
+
+    # Print the indexes with statements
+    if pathogenic_indexes:
+        print('Consider these rows of your TSV for detected pathogenic variants:', pathogenic_indexes)
+
+    if pathogenic_likely_pathogenic_indexes:
+        print('Consider these rows of your TSV for pathogenic or likely-pathogenic variants:',
+              pathogenic_likely_pathogenic_indexes)
+
+    # # Write the detected pathogenic variants to a new TSV file
+    # def write_tsv_file(output_file, indexes):
+    #     output_df = input_variants_df.iloc[indexes]
+    #     output_df.to_csv(output_file, sep='\t', index=False, columns=input_variants_df.columns)
+    #
+    #
+    # # Specify the output file paths
+    # pathogenic_output_file = 'pathogenic_variants.tsv'
+    # pathogenic_likely_pathogenic_output_file = 'pathogenic_likely_pathogenic_variants.tsv'
+    #
+    # # Write the output TSV files
+    # if pathogenic_indexes:
+    #     write_tsv_file(pathogenic_output_file, pathogenic_indexes)
+    #     print(f'Pathogenic variants saved to {pathogenic_output_file}')
+    #
+    # if pathogenic_likely_pathogenic_indexes:
+    #     write_tsv_file(pathogenic_likely_pathogenic_output_file, pathogenic_likely_pathogenic_indexes)
+    #     print(f'Pathogenic or likely-pathogenic variants saved to {pathogenic_likely_pathogenic_output_file}')
