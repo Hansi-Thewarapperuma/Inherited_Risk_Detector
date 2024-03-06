@@ -12,7 +12,6 @@ def evaluate_clinical_significance(input_variants_df):
 
     # define the columns of TSV
     clnsig_column = 'CLNSIG'
-    #dbnsfp_clnsig_column = 'dbNSFP_clinvar_clnsig'
 
     # allocate customised scores for expected variant interpretations based on priority
     pathogenic_score = 1
@@ -31,6 +30,8 @@ def evaluate_clinical_significance(input_variants_df):
         # FOR clnsig_column
         # exclude missing values
         if str(row[clnsig_column]).lower() != 'n/a':
+            # if 'conflicting_interpretations_of_pathogenicity' in str(row[clnsig_column]).lower():
+            #     clnsig_score = 0.05
             # when the condition is true; the clnsig_score is assigned with corresponding variant interpretation score
             if 'pathogenic' in str(row[clnsig_column]).lower():
                 clnsig_score = pathogenic_score
@@ -39,15 +40,17 @@ def evaluate_clinical_significance(input_variants_df):
             elif 'uncertain_significance' in str(row[clnsig_column]).lower():
                 clnsig_score = vus_score
 
+
+        # value comparison ; both values should be similar to interpret the pathogenicity, otherwise its conflicting
+
         if clnsig_score == 1:
             results.append((index, 'pathogenic'))
         elif clnsig_score == 0.1:
             results.append((index, 'vus'))
         elif clnsig_score == 0.01:
             results.append((index, 'benign'))
-        elif clnsig_score == 0.05:
-            results.append((index, 'conflicting_interpretations_of_pathogenicity'))
         elif clnsig_score == 0:
             results.append((index, 'N/A'))
+
 
     return results

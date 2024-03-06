@@ -21,7 +21,7 @@ if __name__ == '__main__':
     # obtain the user input fasta file
     user_tsv = input('Enter your generated TSV file: ')
 
-    input_variants_df = file_process.tsv_to_df(user_tsv)
+    input_variants_df = file_process.tsv_to_df_filter_genes(user_tsv)
 
     # in silico functional predictions - output: list of tuples containing the index and evaluation
     functional_pred = Func_pred.in_silico_functional_predictions(input_variants_df)
@@ -97,7 +97,7 @@ if __name__ == '__main__':
         'not_deleterious': -1,
         'common': -1,
         'not_conserved': -1,
-        'benign': -1,
+        'benign': -2,
         'less_quality' : -1,
 
         'unresolved_clinical_significance': 0,
@@ -178,21 +178,54 @@ if __name__ == '__main__':
         print('Consider these rows of your TSV for pathogenic or likely-pathogenic variants:',
               pathogenic_likely_pathogenic_indexes)
 
-    # # Write the detected pathogenic variants to a new TSV file
+    # Write the detected pathogenic variants to a new TSV file
     # def write_tsv_file(output_file, indexes):
     #     output_df = input_variants_df.iloc[indexes]
     #     output_df.to_csv(output_file, sep='\t', index=False, columns=input_variants_df.columns)
-    #
-    #
-    # # Specify the output file paths
-    # pathogenic_output_file = 'pathogenic_variants.tsv'
-    # pathogenic_likely_pathogenic_output_file = 'pathogenic_likely_pathogenic_variants.tsv'
-    #
-    # # Write the output TSV files
-    # if pathogenic_indexes:
-    #     write_tsv_file(pathogenic_output_file, pathogenic_indexes)
-    #     print(f'Pathogenic variants saved to {pathogenic_output_file}')
-    #
-    # if pathogenic_likely_pathogenic_indexes:
-    #     write_tsv_file(pathogenic_likely_pathogenic_output_file, pathogenic_likely_pathogenic_indexes)
-    #     print(f'Pathogenic or likely-pathogenic variants saved to {pathogenic_likely_pathogenic_output_file}')
+
+
+    def write_tsv_file(output_file, indexes):
+        try:
+            # Ensure indexes are within the valid range
+            valid_indexes = [idx for idx in indexes if 0 <= idx < len(input_variants_df)]
+
+            if not valid_indexes:
+                print("No valid indexes to write.")
+                return
+
+            output_df = input_variants_df.iloc[valid_indexes]
+
+            # Reset the index before saving to ensure consistent indexing in the saved TSV file
+            output_df.reset_index(drop=True, inplace=True)
+
+            output_df.to_csv(output_file, sep='\t', index=False, columns=input_variants_df.columns)
+            print(f'TSV file saved to {output_file}')
+        except Exception as e:
+            print(f'Error saving TSV file: {e}')
+
+
+    # Specify the output file paths
+    pathogenic_output_file = 'pathogenic_variants.tsv'
+    pathogenic_likely_pathogenic_output_file = 'pathogenic_likely_pathogenic_variants.tsv'
+
+    # Write the output TSV files
+    if pathogenic_indexes:
+        write_tsv_file(pathogenic_output_file, pathogenic_indexes)
+        print(f'Pathogenic variants saved to {pathogenic_output_file}')
+
+    if pathogenic_likely_pathogenic_indexes:
+        write_tsv_file(pathogenic_likely_pathogenic_output_file, pathogenic_likely_pathogenic_indexes)
+        print(f'Pathogenic or likely-pathogenic variants saved to {pathogenic_likely_pathogenic_output_file}')
+
+    # print(len(input_variants_df))
+
+    # print("Pathogenic Indexes:", pathogenic_indexes)
+    # print("Likely Pathogenic Indexes:", pathogenic_likely_pathogenic_indexes)
+
+    valid_indexes_pathogenic = [idx for idx in pathogenic_indexes if 0 <= idx < len(input_variants_df)]
+    valid_indexes_likely_pathogenic = [idx for idx in pathogenic_likely_pathogenic_indexes if
+                                       0 <= idx < len(input_variants_df)]
+
+    # print("Valid Pathogenic Indexes:", valid_indexes_pathogenic)
+    # print("Valid Likely Pathogenic Indexes:", valid_indexes_likely_pathogenic)
+

@@ -39,7 +39,7 @@ def conservation_scores(input_variants_df):
                 row[phyloP100_column] > 0.5 if pd.notna(row[phyloP100_column]) else None,
                 row[phyloP30_column] > 1.2 if pd.notna(row[phyloP30_column]) else None,
                 row[phastCons_column] > 0.5 if pd.notna(row[phastCons_column]) else None,
-                row[eigen_column] > 0 if pd.notna(row[eigen_column]) else None,
+                row[eigen_column] > 0.5 if pd.notna(row[eigen_column]) else None,
                 row[gerp_column] > 2 if pd.notna(row[gerp_column]) else None
             ]
 
