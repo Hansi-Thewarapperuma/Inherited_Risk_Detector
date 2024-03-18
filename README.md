@@ -13,7 +13,7 @@ The Inherited Risk Detector Command-Line Tool is a powerful genetic variant eval
 - [Output](#output)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
-- [License](#license)
+- [License](LICENSE.md)
 
 ## Features
 
