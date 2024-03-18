@@ -19,7 +19,7 @@ import Quality
 # main method
 if __name__ == '__main__':
     # obtain the user input fasta file
-    user_tsv = input('Enter your generated TSV file: ')
+    user_tsv = input('Enter your TSV file path: ')
 
     input_variants_df = file_process.tsv_to_df_filter_genes(user_tsv)
 
@@ -171,12 +171,12 @@ if __name__ == '__main__':
     pathogenic_likely_pathogenic_indexes = list(filtered_second_highest_score_results.keys())
 
     # Print the indexes with statements
-    if pathogenic_indexes:
-        print('Consider these rows of your TSV for detected pathogenic variants:', pathogenic_indexes)
+    # if pathogenic_indexes:
+    #     print('Consider these rows of your TSV for detected pathogenic variants:', pathogenic_indexes)
 
-    if pathogenic_likely_pathogenic_indexes:
-        print('Consider these rows of your TSV for pathogenic or likely-pathogenic variants:',
-              pathogenic_likely_pathogenic_indexes)
+    # if pathogenic_likely_pathogenic_indexes:
+        # print('Consider these rows of your TSV for pathogenic or likely-pathogenic variants:',
+        #       pathogenic_likely_pathogenic_indexes)
 
     # Write the detected pathogenic variants to a new TSV file
     # def write_tsv_file(output_file, indexes):

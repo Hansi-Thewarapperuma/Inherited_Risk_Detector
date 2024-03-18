@@ -26,7 +26,7 @@ The Inherited Risk Detector Command-Line Tool is a powerful genetic variant eval
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/Inherited-Risk-Detector.git
+    git clone https://github.com/Hansi-Thewarapperuma/Inherited-Risk-Detector.git
     cd Inherited-Risk-Detector
     ```
 

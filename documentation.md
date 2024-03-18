@@ -102,6 +102,6 @@ echo "Annotation completed. Output written to: ${output_vcf}.dbnsfp.vcf and ${ou
 
 ---
 
-For additional resources, refer to the [README](link-to-documentation).
+For additional resources, refer to the [README](https://github.com/Hansi-Thewarapperuma/Inherited_Risk_Detector/blob/master/README.md).
 
 For questions or support, contact us at [hansithewarapperuma@gmail.com](mailto:hansithewarapperuma@gmail.com).
