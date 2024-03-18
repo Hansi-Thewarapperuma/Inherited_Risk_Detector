@@ -4,6 +4,7 @@
 
 The Inherited Risk Detector Command-Line Tool is a powerful genetic variant evaluation tool that scores entries based on multiple criteria, providing insights into pathogenic and likely pathogenic variants. This tool streamlines the analysis of TSV files, making it efficient to identify genetic predispositions.
 
+
 ## Table of Contents
 
 - [Features](#features)
