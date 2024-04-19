@@ -48,7 +48,7 @@ python run_me.py
 Follow the on-screen instructions to input your generated TSV file.
 
 ### Additional Resources for input TSV generation
-- Our command-line tool is accompanied by guidelines for annotation. Explore the [documentation](link-to-documentation) for detailed instructions of the annotation of VCF files and required TSV file generateion as input for the tool.
+- Our command-line tool is accompanied by guidelines for annotation. Explore the [documentation](https://github.com/Hansi-Thewarapperuma/Inherited_Risk_Detector/blob/master/documentation.md) for detailed instructions of the annotation of VCF files and required TSV file generateion as input for the tool.
 
 ## Output
 
